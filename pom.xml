@@ -46,6 +46,7 @@
 				<configuration>
 					<archive>
 						<manifest>
+							<mainClass>org.jis.Main</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
