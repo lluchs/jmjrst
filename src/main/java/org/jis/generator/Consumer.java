@@ -22,7 +22,7 @@ import java.util.Vector;
 import org.jis.Main;
 import org.jis.options.Options;
 
-import com.sun.image.codec.jpeg.ImageFormatException;
+import sun.awt.image.ImageFormatException;
 
 /**
  * @author <a href="http://www.jgeppert.com">Johannes Geppert</a>

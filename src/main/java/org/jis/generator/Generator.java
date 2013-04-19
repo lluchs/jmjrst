@@ -58,7 +58,7 @@ import javax.swing.filechooser.FileSystemView;
 import org.jis.Main;
 import org.jis.options.Options;
 
-import com.sun.image.codec.jpeg.ImageFormatException;
+import sun.awt.image.ImageFormatException;
 
 /**
  * @author <a href="http://www.jgeppert.com">Johannes Geppert</a>
@@ -745,7 +745,7 @@ public class Generator {
     }
     else
     {
-      throw new IllegalArgumentException("degree must be a mutiple of 90°!");
+      throw new IllegalArgumentException("degree must be a mutiple of 90ï¿½!");
     }
 
     // Return a new Image
