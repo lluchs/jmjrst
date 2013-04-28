@@ -58,8 +58,6 @@ import javax.swing.filechooser.FileSystemView;
 import org.jis.Main;
 import org.jis.options.Options;
 
-import sun.awt.image.ImageFormatException;
-
 /**
  * @author <a href="http://www.jgeppert.com">Johannes Geppert</a>
  * 
@@ -313,9 +311,8 @@ public class Generator {
    *          int, heigth of the scaled image
    * @return File
    * @throws IOException
-   * @throws ImageFormatException
    */
-  public File generateImage(File imageFile, File iout, boolean print, int width, int height, String praefix) throws ImageFormatException, IOException
+  public File generateImage(File imageFile, File iout, boolean print, int width, int height, String praefix) throws IOException
   {
 
     // Output Image
