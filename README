@@ -1,0 +1,8 @@
+JMJRST
+======
+
+This project is based off old software which had some different coding standards in place. The most common CheckStyle violations are:
+
+ - '{' should be on the previous line. (467 cases)
+ - Missing a Javadoc comment. (203 cases)
+ - '}' should be on the same line. (124 cases)
