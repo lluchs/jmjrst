@@ -95,6 +95,9 @@ public class Generator {
    */
   public void createZip(File zipFileName, Vector<File> selected)
   {
+    if (zipFileName == null) {
+      throw new IllegalArgumentException();
+    }
     try
     {
       byte[] buffer = new byte[ 4096];

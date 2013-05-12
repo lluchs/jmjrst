@@ -31,5 +31,10 @@ public class GeneratorTest {
 		subject.createZip(testFile, new Vector<File>());
 		assertTrue("The zip file should have been created.", testFile.exists());
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateZipIllegalArgument() {
+		subject.createZip(null, new Vector<File>());
+	}
 
 }
