@@ -22,7 +22,8 @@ public class GeneratorTest {
 
 	@After
 	public void tearDown() throws Exception {
-		testFile.delete();
+		boolean success = testFile.delete();
+		System.err.println("testfile.zip " + (success ? "has been" : "could not be") + " deleted.");
 	}
 
 	@Test
