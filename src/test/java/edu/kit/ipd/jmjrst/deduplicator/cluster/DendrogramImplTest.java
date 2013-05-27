@@ -1,6 +1,6 @@
 package edu.kit.ipd.jmjrst.deduplicator.cluster;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -8,13 +8,20 @@ import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Testet den Dendrogrammbauer.
+ *
+ */
 public class DendrogramImplTest {
 	
 	DendrogramImpl subject;
 	float[][] sims;
 
+	/**
+	 * Initialisiert die Testklasse und erstellt Testdaten.
+	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		subject = new DendrogramImpl(null);
 		sims = new float[][] {{   1, 0.2f, 0.3f, 0.5f},
 		                      {0.2f,    1, 0.7f, 0.1f},
@@ -38,6 +45,9 @@ public class DendrogramImplTest {
 		}
 	}
 
+	/**
+	 * Testet die Clustererzeugung nach der CompleteLinkage-Strategie.
+	 */
 	@Test
 	public void testCompleteLinkage() {
 		subject.setDm(new CompleteLinkage());
@@ -51,6 +61,9 @@ public class DendrogramImplTest {
 		checkCluster(result, expected);
 	}
 
+	/**
+	 * Testet die Clustererzeugung nach der AvgLinkage-Strategie.
+	 */
 	@Test
 	public void testAvgLinkage() {
 		subject.setDm(new AvgLinkage());
@@ -64,7 +77,10 @@ public class DendrogramImplTest {
 		checkCluster(result, expected);
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	/**
+	 * Testet, ob die 'null' als erster Parameter an buildWith korrekt behandelt wird.
+	 */
+	@Test(expected = IllegalArgumentException.class)
 	public void illegalArgument() {
 		subject.buildFrom(null);
 	}
