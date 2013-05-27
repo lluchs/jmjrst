@@ -22,6 +22,9 @@ public class DendrogramImpl implements Dendrogram {
 
 	@Override
 	public Cluster buildFrom(float[][] sims) {
+		if (sims == null) {
+			throw new IllegalArgumentException("sims must not be null");
+		}
 		dm.setLeafSims(sims);
 		// Build a set of leaves.
 		ArrayList<Cluster> clusters = new ArrayList<Cluster>(sims.length);
