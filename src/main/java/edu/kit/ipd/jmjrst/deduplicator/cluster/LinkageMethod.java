@@ -22,7 +22,8 @@ package edu.kit.ipd.jmjrst.deduplicator.cluster;
 public interface LinkageMethod {
 
 	/**
-	 * Liefert den Verbindungsgrad zwischen zwei Elementen.
+	 * Liefert den neuen Verbindungsgrad zwischen einem bleibenden Element und
+	 * dem neu gebildeten Cluster.
 	 * 
 	 * Erklärung zur Verwendung: Beim Bau eines Dendrogramms werden schrittweise
 	 * die am nächsten beieinander liegen Cluster zu einem neuen
@@ -43,12 +44,29 @@ public interface LinkageMethod {
 	 * Verbindungsgrads ggf. auf alle bereits zusammengefassten Elemente
 	 * zugreift. Daher braucht es hier "Cluster".
 	 * 
+	 * (Noch unschön: Die konkrete LinkageMethod muss für den Verbindungsgrad
+	 * zwischen Blättern in der Ähnlichkeitsmatrix nachschauen; diese wird via
+	 * setLeafSims() gesetzt.)
+	 * 
 	 * @param newCluster
-	 *            Der linke Teilbaum.
+	 *            Der neue Cluster.
 	 * @param existingCluster
-	 *            Der rechte Teilbaum.
+	 *            Ein bleibendes Element, dessen neuer Verbindungsgrad zum neuen
+	 *            Cluster berechnet werden soll.
 	 * @return Der resultierende neue Verbindungsgrad, je nach implementierendem
 	 *         Verfahren.
 	 */
 	float getLinkage(Cluster newCluster, Cluster existingCluster);
+
+	/**
+	 * Setzt die Basisähnlichkeiten für die Blätter der Clusterhierarchie.
+	 * 
+	 * (Die Ähnlichkeit zweier Blätter der Hierarchie soll aus dieser Matrix
+	 * abgelesen werden. Zwei Elemente "mitten im Baum" erhalten ihren
+	 * Verbindungsgrad je nach konkreter Methode.)
+	 * 
+	 * @param sims
+	 *            Die Ähnlichkeitsmatrix.
+	 */
+	void setLeafSims(float[][] sims);
 }

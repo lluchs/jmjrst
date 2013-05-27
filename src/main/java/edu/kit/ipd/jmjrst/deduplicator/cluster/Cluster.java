@@ -66,4 +66,23 @@ public interface Cluster {
 	 */
 	void setLinkage(float dist);
 
+	/**
+	 * Setzt den Index (aus der Ähnlichkeitsmatrix). (Sinnvoll und gedacht für
+	 * Blätter.)
+	 * 
+	 * (Ist recht unschöne Verbindung zwischen Bildern, ihren Histogrammen und
+	 * ihrer Position im Cluster.)
+	 * 
+	 * @param index
+	 *            Der Index.
+	 */
+	void setFileIndex(int index);
+
+	/**
+	 * Liefert den Index (aus der Ähnlichkeitsmatrix). (Sinnvoll und gedacht für
+	 * Blätter.)
+	 * 
+	 * @return Der Index.
+	 */
+	int getFileIndex();
 }
