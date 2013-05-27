@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>swt1.ub2.a3</groupId>
+	<groupId>swt1.ub3.a5</groupId>
 	<artifactId>1656404</artifactId>
 	<parent>
 		<groupId>edu.kit.ipd.swt1.ss2013</groupId>

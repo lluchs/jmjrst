@@ -14,25 +14,11 @@ import javax.imageio.ImageIO;
 public class GreyHistogram implements Histogram {
 	private float[] histogram;
 
-	/**
-	 * Liefert das Histogramm (eines Bildes).
-	 * 
-	 * @return ein Histogramm mit 256 relativen Häufigkeiten.
-	 */
 	@Override
 	public float[] getHistogram() {
 		return histogram;
 	}
 
-	/**
-	 * Setze die Datei, für die das Histogramm berechnet werden soll.
-	 * 
-	 * @param f
-	 *            Jene Datei.
-	 * @throws IOException
-	 *             Wird ausgelöst, falls die Datei nicht als Bilddatei
-	 *             eingelesen werden kann.
-	 */
 	@Override
 	public void buildFrom(File f) throws IOException {
 		BufferedImage image = ImageIO.read(f);
@@ -52,12 +38,6 @@ public class GreyHistogram implements Histogram {
 		}
 	}
 	
-	/**
-	 * Konvertiert ein RGB-Farbwert zu einem Graustufenwert.
-	 * 
-	 * @param rgb Die Farbe.
-	 * @return Der Graustufenwert.
-	 */
 	 private int rgbToGrey(int rgb) {
 		 Color c = new Color(rgb);
 		 return (int) (0.299 * c.getRed() + 0.587 * c.getGreen() + 0.114 * c.getBlue());

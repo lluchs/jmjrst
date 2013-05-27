@@ -1,12 +1,11 @@
 package edu.kit.ipd.jmjrst.deduplicator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,11 +17,13 @@ public class GreyHistogramComparatorTest {
 	/**
 	 * Test comparisons.
 	 */
-	GreyHistogramComparator all, bw, grey;
+	GreyHistogramComparator all;
+	GreyHistogramComparator bw;
+	GreyHistogramComparator grey;
 
 	/**
 	 * Loads the sample images with some grouping.
-	 * @throws Exception
+	 * @throws Exception it might not work
 	 */
 	@Before
 	public void setUp() throws Exception {
