@@ -1,7 +1,7 @@
 package edu.kit.ipd.jmjrst.deduplicator.cluster;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.TreeSet;
+import java.util.SortedSet;
 
 /**
  * Implementiert ein Dendrogramm mit gegebener
@@ -23,10 +23,11 @@ public class DendrogramImpl implements Dendrogram {
 
 	@Override
 	public Cluster buildFrom(float[][] sims) {
+		dm.setLeafSims(sims);
 		// Build a set of leaves.
-		Set<Cluster> clusters = new HashSet<Cluster>(sims.length);
+		SortedSet<Cluster> clusters = new TreeSet<Cluster>();
 		for (int i = 0; i < sims.length; i++) {
-			clusters.add(new ClusterImpl(i, sims[i]));
+			clusters.add(new ClusterImpl(i));
 		}
 		// Merge clusters until there's only one left.
 		while (clusters.size() > 1) {
@@ -40,7 +41,7 @@ public class DendrogramImpl implements Dendrogram {
 					if (c1 == c2) {
 						break;
 					}
-					float sim = dm.getLinkage(c1,  c2);
+					float sim = sims[c1.getFileIndex()][c2.getFileIndex()];
 					if (sim > biggest) {
 						biggest = sim;
 						sc1 = c1;
@@ -51,10 +52,19 @@ public class DendrogramImpl implements Dendrogram {
 			// Merge the found clusters.
 			clusters.remove(sc1);
 			clusters.remove(sc2);
-			clusters.add(new ClusterImpl(sc1, sc2, biggest));
+			Cluster newCluster = new ClusterImpl(sc1, sc2, biggest);
+			int newIndex = sc1.getFileIndex();
+			newCluster.setFileIndex(newIndex);
+			// Adjust the similarity matrix.
+			for (Cluster c : clusters) {
+				float newLinkage = dm.getLinkage(newCluster, c);
+				sims[newIndex][c.getFileIndex()] = newLinkage;
+				sims[c.getFileIndex()][newIndex] = newLinkage;
+			}
+			clusters.add(newCluster);
 		}
 		// Return the single remaining root cluster.
-		return clusters.iterator().next();
+		return clusters.first();
 	}
 
 	@Override

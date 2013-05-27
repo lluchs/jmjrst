@@ -67,21 +67,6 @@ public interface Cluster {
 	void setLinkage(float dist);
 	
 	/**
-	 * Liefert die ID eines Blattclusters oder -1 zurück.
-	 * 
-	 * @return Die ID oder -1.
-	 */
-	int getId();
-	
-	/**
-	 * Gibt die Distanz zu einem anderen Blattcluster zurück.
-	 * 
-	 * @param id Die ID des anderen Blattclusters.
-	 * @return Die Distanz.
-	 */
-	float getDistance(int id);
-
-	/**
 	 * Setzt den Index (aus der Ähnlichkeitsmatrix). (Sinnvoll und gedacht für
 	 * Blätter.)
 	 * 

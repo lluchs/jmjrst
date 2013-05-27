@@ -7,7 +7,6 @@ package edu.kit.ipd.jmjrst.deduplicator.cluster;
 public class ClusterImpl implements Cluster {
 	
 	private int id;
-	private float[] distances;
 	private float linkage;
 	private Cluster left;
 	private Cluster right;
@@ -30,11 +29,9 @@ public class ClusterImpl implements Cluster {
 	 * Erstellt ein Blattcluster.
 	 * 
 	 * @param id Die ID des Blattclusters.
-	 * @param distances Array mit Distanzen zu den anderen Blattclustern.
 	 */
-	public ClusterImpl(int id, float[] distances) {
+	public ClusterImpl(int id) {
 		this.id = id;
-		this.distances = distances;
 	}
 
 	@Override
@@ -68,13 +65,12 @@ public class ClusterImpl implements Cluster {
 	}
 
 	@Override
-	public int getId() {
+	public int getFileIndex() {
 		return id;
 	}
 
 	@Override
-	public float getDistance(int id) {
-		return distances[id];
+	public void setFileIndex(int index) {
+		this.id = index;
 	}
-
 }
