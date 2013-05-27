@@ -9,7 +9,7 @@ import org.junit.Test;
  * Tests für die gemittelte Verbindungsberechnung.
  *
  */
-public class AverageLinkageTest {
+public class AvgLinkageTest {
 	
 	AvgLinkage subject;
 	float[][] sims;
