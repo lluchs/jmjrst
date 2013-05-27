@@ -1,7 +1,6 @@
 package edu.kit.ipd.jmjrst.deduplicator.cluster;
 
-import java.util.TreeSet;
-import java.util.SortedSet;
+import java.util.ArrayList;
 
 /**
  * Implementiert ein Dendrogramm mit gegebener
@@ -25,7 +24,7 @@ public class DendrogramImpl implements Dendrogram {
 	public Cluster buildFrom(float[][] sims) {
 		dm.setLeafSims(sims);
 		// Build a set of leaves.
-		SortedSet<Cluster> clusters = new TreeSet<Cluster>();
+		ArrayList<Cluster> clusters = new ArrayList<Cluster>(sims.length);
 		for (int i = 0; i < sims.length; i++) {
 			clusters.add(new ClusterImpl(i));
 		}
@@ -64,7 +63,7 @@ public class DendrogramImpl implements Dendrogram {
 			clusters.add(newCluster);
 		}
 		// Return the single remaining root cluster.
-		return clusters.first();
+		return clusters.get(0);
 	}
 
 	@Override
