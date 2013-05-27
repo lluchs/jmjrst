@@ -14,12 +14,6 @@ public class GreyHistogramComparator implements Comparator {
 	
 	private GreyHistogram[] histograms;
 
-	/**
-	 * Liefert die Ähnlichkeiten zwischen 0 und 1 für N Bilder in einer
-	 * N*N-Matrix.
-	 * 
-	 * @return eine Matrix mit allen Ähnlichkeitswerten.
-	 */
 	@Override
 	public float[][] getSimilarities() {
 		float[][] result = new float[histograms.length][histograms.length];
@@ -53,17 +47,6 @@ public class GreyHistogramComparator implements Comparator {
 		return 1.0f - sum / 255.0f;
 	}
 
-	/**
-	 * Setzt die Menge der zu vergleichenden Dateien.
-	 * 
-	 * @param imageFiles
-	 *            Liste der zu vergleichenden Bilddateien.
-	 * @throws IOException
-	 *             Wird ausgelöst, falls eine der Dateien nicht als Bilddatei
-	 *             interpretiert werden kann.
-	 * @throws IllegalArgumentException
-	 *             Wid ausgelöst, falls imageFiles null ist.
-	 */
 	@Override
 	public void setFiles(List<File> imageFiles) throws IOException {
 		if (imageFiles == null) {

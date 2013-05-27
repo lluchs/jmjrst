@@ -1,10 +1,9 @@
 package edu.kit.ipd.jmjrst.deduplicator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,11 +16,14 @@ public class GreyHistogramTest {
 	/**
 	 * Test files.
 	 */
-	GreyHistogram white, black, gradient, color;
+	GreyHistogram white;
+	GreyHistogram black;
+	GreyHistogram gradient;
+	GreyHistogram color;
 
 	/**
 	 * Load all test image files.
-	 * @throws Exception
+	 * @throws Exception this might fail
 	 */
 	@Before
 	public void setUp() throws Exception {
