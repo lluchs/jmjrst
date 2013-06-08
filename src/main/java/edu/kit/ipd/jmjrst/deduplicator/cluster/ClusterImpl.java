@@ -12,6 +12,13 @@ public class ClusterImpl implements Cluster {
 	private Cluster right;
 	
 	/**
+	 * Standard-Konstruktor.
+	 */
+	public ClusterImpl() {
+		this.id = -1;
+	}
+	
+	/**
 	 * Erstellt ein inneres Cluster mit Ausgangswerten.
 	 * 
 	 * @param left linkes Element
@@ -19,10 +26,10 @@ public class ClusterImpl implements Cluster {
 	 * @param linkage Verbindungsgrad
 	 */
 	public ClusterImpl(Cluster left, Cluster right, float linkage) {
+		this();
 		this.left = left;
 		this.right = right;
 		this.linkage = linkage;
-		this.id = -1;
 	}
 	
 	/**
