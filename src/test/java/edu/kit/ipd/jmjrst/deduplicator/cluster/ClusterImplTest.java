@@ -1,6 +1,8 @@
 package edu.kit.ipd.jmjrst.deduplicator.cluster;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 
@@ -73,5 +75,37 @@ public class ClusterImplTest {
 
 		// wir erwarten bei obigem Aufbau und Schwellwert 3 Subcluster
 		assertEquals(i, 3);
+	}
+	
+	/**
+	 * Iterator-Test: Testet den Randfall eines einzelnen Blattknotens.
+	 */
+	@Test
+	public void testSingleLeaf() {
+		Cluster leaf = new ClusterImpl();
+		Iterator<Cluster> subClusters = leaf.subClusterIterator(1.0f);
+		assertTrue(subClusters.hasNext());
+		assertEquals(leaf, subClusters.next());
+		assertFalse(subClusters.hasNext());
+		assertEquals(null, subClusters.next());
+	}
+	
+	/**
+	 * Iterator-Test: Testet das iterieren über alle Blattknoten via Schwellwert 1.
+	 */
+	@Test
+	public void testLeafIterator() {
+		Iterator<Cluster> leaves = testCluster.subClusterIterator(1.0f);
+		int i = 0;
+		while (leaves.hasNext()) {
+			i++;
+			Cluster leaf = leaves.next();
+			// Überprüfe, ob es sich tatsächlich um einen Blattknoten handelt.
+			assertEquals(null, leaf.getLeft());
+			assertEquals(null, leaf.getRight());
+		}
+
+		// Es gibt 7 Blattknoten.
+		assertEquals(7, i);
 	}
 }
