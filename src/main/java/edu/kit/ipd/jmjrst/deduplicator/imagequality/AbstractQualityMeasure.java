@@ -8,10 +8,13 @@ import java.awt.image.BufferedImage;
  */
 public abstract class AbstractQualityMeasure implements QualityMeasure {
 	
-	private int weight;
+	private int weight = 50;
 
 	@Override
 	public void setWeight(int weight) {
+		if (weight < 0 || weight > 100) {
+			throw new IllegalArgumentException("weight must be between 0 and 100.");
+		}
 		this.weight = weight;
 	}
 
