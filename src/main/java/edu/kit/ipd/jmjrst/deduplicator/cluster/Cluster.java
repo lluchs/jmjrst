@@ -10,6 +10,8 @@
  */
 package edu.kit.ipd.jmjrst.deduplicator.cluster;
 
+import java.util.Iterator;
+
 /**
  * Schnittstelle für Cluster (aus zwei Elementen)
  * 
@@ -65,7 +67,7 @@ public interface Cluster {
 	 *            Der Verbindungsgrad.
 	 */
 	void setLinkage(float dist);
-	
+
 	/**
 	 * Setzt den Index (aus der Ähnlichkeitsmatrix). (Sinnvoll und gedacht für
 	 * Blätter.)
@@ -85,4 +87,15 @@ public interface Cluster {
 	 * @return Der Index.
 	 */
 	int getFileIndex();
+
+	/**
+	 * Liefert alle Cluster, die gleich ähnlich oder ähnlicher als der
+	 * übergebene Schwellwert sind. (Diese Methode sollte üblicherweise auf das
+	 * Wurzelelement eines Dendrogramms angewandt werden).
+	 * 
+	 * @param similarity
+	 *            Schwellwert für die Ähnlichkeit zweier Cluster.
+	 * @return Iterator über die Subcluster.
+	 */
+	Iterator<Cluster> subClusterIterator(float similarity);
 }

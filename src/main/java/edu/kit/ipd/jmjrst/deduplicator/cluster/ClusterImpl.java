@@ -1,5 +1,7 @@
 package edu.kit.ipd.jmjrst.deduplicator.cluster;
 
+import java.util.Iterator;
+
 /**
  * Ein Cluster ist ein Binärbaum mit Verbindungsgraden.
  *
@@ -12,6 +14,13 @@ public class ClusterImpl implements Cluster {
 	private Cluster right;
 	
 	/**
+	 * Standard-Konstruktor.
+	 */
+	public ClusterImpl() {
+		this.id = -1;
+	}
+	
+	/**
 	 * Erstellt ein inneres Cluster mit Ausgangswerten.
 	 * 
 	 * @param left linkes Element
@@ -19,10 +28,10 @@ public class ClusterImpl implements Cluster {
 	 * @param linkage Verbindungsgrad
 	 */
 	public ClusterImpl(Cluster left, Cluster right, float linkage) {
+		this();
 		this.left = left;
 		this.right = right;
 		this.linkage = linkage;
-		this.id = -1;
 	}
 	
 	/**
@@ -72,5 +81,10 @@ public class ClusterImpl implements Cluster {
 	@Override
 	public void setFileIndex(int index) {
 		this.id = index;
+	}
+
+	@Override
+	public Iterator<Cluster> subClusterIterator(float similarity) {
+		return new ClusterIterator(this, similarity);
 	}
 }
