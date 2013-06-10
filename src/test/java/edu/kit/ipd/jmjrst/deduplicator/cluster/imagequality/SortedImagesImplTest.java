@@ -1,6 +1,6 @@
 package edu.kit.ipd.jmjrst.deduplicator.cluster.imagequality;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
