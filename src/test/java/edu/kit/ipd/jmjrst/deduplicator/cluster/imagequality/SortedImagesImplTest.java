@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.kit.ipd.jmjrst.deduplicator.imagequality.DimensionQualityMeasure;
+import edu.kit.ipd.jmjrst.deduplicator.imagequality.QualityMeasureMegapixels;
 import edu.kit.ipd.jmjrst.deduplicator.imagequality.ISOSpeedQualityMeasure;
 import edu.kit.ipd.jmjrst.deduplicator.imagequality.QualityMeasure;
 import edu.kit.ipd.jmjrst.deduplicator.imagequality.SortedImagesImpl;
@@ -34,7 +34,7 @@ public class SortedImagesImplTest {
 	private static BufferedImage large;
 	
 	private ISOSpeedQualityMeasure isoSpeedQM;
-	private DimensionQualityMeasure dimensionQM;
+	private QualityMeasureMegapixels dimensionQM;
 	
 	private SortedImagesImpl subject;
 
@@ -60,7 +60,7 @@ public class SortedImagesImplTest {
 	 */
 	@Before
 	public void setUp() {
-		dimensionQM = new DimensionQualityMeasure();
+		dimensionQM = new QualityMeasureMegapixels();
 		isoSpeedQM = new ISOSpeedQualityMeasure();
 		isoSpeedQM.addFile(iso100, iso100f);
 		isoSpeedQM.addFile(iso400, iso400f);

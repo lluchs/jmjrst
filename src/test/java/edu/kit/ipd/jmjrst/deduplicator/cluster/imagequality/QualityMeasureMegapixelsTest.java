@@ -11,18 +11,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.kit.ipd.jmjrst.deduplicator.imagequality.DimensionQualityMeasure;
+import edu.kit.ipd.jmjrst.deduplicator.imagequality.QualityMeasureMegapixels;
 
 /**
  * Testet den Pixelzahl-Qualitätsberechner.
  *
  */
-public class DimensionQualityMeasureTest {
+public class QualityMeasureMegapixelsTest {
 	private static BufferedImage small;
 	private static BufferedImage middle;
 	private static BufferedImage large;
 	
-	private DimensionQualityMeasure subject;
+	private QualityMeasureMegapixels subject;
 	
 	/**
 	 * Lädt Testbilder.
@@ -40,7 +40,7 @@ public class DimensionQualityMeasureTest {
 	 */
 	@Before
 	public void setUp() {
-		subject = new DimensionQualityMeasure();
+		subject = new QualityMeasureMegapixels();
 	}
 
 	/**

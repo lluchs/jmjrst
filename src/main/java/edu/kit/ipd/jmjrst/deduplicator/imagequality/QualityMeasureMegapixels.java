@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
  * Bestimmt die Qualität eines Bildes anhand der Pixelzahl.
  *
  */
-public class DimensionQualityMeasure extends AbstractQualityMeasure {
+public class QualityMeasureMegapixels extends AbstractQualityMeasure {
 	private static final int MIN = 640 * 480;
 	private static final int MAX = 4992 * 3328;
 
