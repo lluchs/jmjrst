@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
  *
  */
 public abstract class AbstractQualityMeasure implements QualityMeasure {
+	/** Standardwert falls kein richtiger Wert bestimmt werden kann. */
+	public static final float DEFAULT = 0.5f;
 	
 	private int weight = 50;
 
