@@ -1,4 +1,4 @@
-package edu.kit.ipd.jmjrst.deduplicator.cluster;
+package edu.kit.ipd.jmjrst.deduplicator.cluster.imagequality;
 
 import static org.junit.Assert.assertEquals;
 
