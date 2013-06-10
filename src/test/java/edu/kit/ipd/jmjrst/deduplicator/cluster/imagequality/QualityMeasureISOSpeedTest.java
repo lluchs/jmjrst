@@ -11,13 +11,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.kit.ipd.jmjrst.deduplicator.imagequality.ISOSpeedQualityMeasure;
+import edu.kit.ipd.jmjrst.deduplicator.imagequality.QualityMeasureISOSpeed;
 
 /**
  * Testet den ISO-Geschwindigkeits-Qualitätsberechner.
  *
  */
-public class ISOSpeedQualityMeasureTest {
+public class QualityMeasureISOSpeedTest {
 	private static File iso100f;
 	private static File iso400f;
 	private static File iso1600f;
@@ -25,7 +25,7 @@ public class ISOSpeedQualityMeasureTest {
 	private static BufferedImage iso400;
 	private static BufferedImage iso1600;
 	
-	private ISOSpeedQualityMeasure subject;
+	private QualityMeasureISOSpeed subject;
 	
 	/**
 	 * Lädt Testbilder.
@@ -46,7 +46,7 @@ public class ISOSpeedQualityMeasureTest {
 	 */
 	@Before
 	public void setUp() {
-		subject = new ISOSpeedQualityMeasure();
+		subject = new QualityMeasureISOSpeed();
 		subject.addFile(iso100, iso100f);
 		subject.addFile(iso400, iso400f);
 		subject.addFile(iso1600, iso1600f);

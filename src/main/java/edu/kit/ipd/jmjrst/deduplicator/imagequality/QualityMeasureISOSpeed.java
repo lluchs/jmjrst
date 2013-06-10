@@ -20,7 +20,7 @@ import com.drew.metadata.exif.ExifSubIFDDirectory;
  * Dazu müssen den geladenen Bildern zunächst Dateien zugeordnet werden.
  *
  */
-public class ISOSpeedQualityMeasure extends AbstractQualityMeasure {
+public class QualityMeasureISOSpeed extends AbstractQualityMeasure {
 	private static final int MIN = 100;
 	private static final int MAX = 1600;
 	
@@ -29,7 +29,7 @@ public class ISOSpeedQualityMeasure extends AbstractQualityMeasure {
 	/**
 	 * Standard-Konstruktor.
 	 */
-	public ISOSpeedQualityMeasure() {
+	public QualityMeasureISOSpeed() {
 		files = new HashMap<BufferedImage, File>();
 	}
 	
