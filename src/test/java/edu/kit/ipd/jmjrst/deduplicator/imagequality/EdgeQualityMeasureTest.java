@@ -1,15 +1,13 @@
 package edu.kit.ipd.jmjrst.deduplicator.imagequality;
 
-
 /**
- * Testet den Pixelzahl-Qualitätsberechner.
- *
+ * Testklasse für das Kantenverhältnis-Qualitätsmaß (EdgeQualityMeasure)
  */
-public class QualityMeasureMegapixelsTest extends AbstractQualityMeasureTest {
+public class EdgeQualityMeasureTest extends AbstractQualityMeasureTest {
 
 	@Override
 	protected QualityMeasure constructTestSubject() {
-		return new QualityMeasureMegapixels();
+		return new EdgeQualityMeasure();
 	}
 
 	@Override
@@ -24,12 +22,12 @@ public class QualityMeasureMegapixelsTest extends AbstractQualityMeasureTest {
 
 	@Override
 	protected float expectedMax() {
-		return 50;
+		return 0;
 	}
 
 	@Override
 	protected float expectedLarge() {
-		return 50;
+		return 0;
 	}
 
 	@Override
@@ -39,7 +37,7 @@ public class QualityMeasureMegapixelsTest extends AbstractQualityMeasureTest {
 
 	@Override
 	protected float expectedColorGradient() {
-		return 0;
+		return 10.343595f;
 	}
 
 }
