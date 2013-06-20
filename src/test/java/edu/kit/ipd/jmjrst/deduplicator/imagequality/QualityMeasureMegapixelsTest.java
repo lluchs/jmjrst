@@ -1,4 +1,4 @@
-package edu.kit.ipd.jmjrst.deduplicator.cluster.imagequality;
+package edu.kit.ipd.jmjrst.deduplicator.imagequality;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,8 +10,6 @@ import javax.imageio.ImageIO;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import edu.kit.ipd.jmjrst.deduplicator.imagequality.QualityMeasureMegapixels;
 
 /**
  * Testet den Pixelzahl-Qualitätsberechner.
