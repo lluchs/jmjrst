@@ -44,6 +44,12 @@ public abstract class AbstractQualityMeasureTest {
 	protected abstract float expectedMin();
 	
 	/**
+	 * Schablonenmehtode: Erwarteter Wert für testMedium().
+	 * @return Die erwartete gewichtete Qualität.
+	 */
+	protected abstract float expectedMedium();
+	
+	/**
 	 * Schablonenmehtode: Erwarteter Wert für testMax().
 	 * @return Die erwartete gewichtete Qualität.
 	 */
@@ -92,6 +98,17 @@ public abstract class AbstractQualityMeasureTest {
 				BufferedImage.TYPE_INT_BGR);
 		qm.getWeightedQuality(image);
 		assertEquals(expectedMin(), qm.getWeightedQuality(image), MAX_ERROR);
+	}
+
+	/**
+	 * Testet ein mittelgroßes, leeres Bild.
+	 */
+	@Test
+	public void testMedium() {
+		BufferedImage image = new BufferedImage(1280, 1024,
+				BufferedImage.TYPE_INT_BGR);
+		qm.getWeightedQuality(image);
+		assertEquals(expectedMedium(), qm.getWeightedQuality(image), MAX_ERROR);
 	}
 
 	/**

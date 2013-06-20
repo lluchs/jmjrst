@@ -23,6 +23,11 @@ public class QualityMeasureMegapixelsTest extends AbstractQualityMeasureTest {
 	}
 
 	@Override
+	protected float expectedMedium() {
+		return 3.0771163f;
+	}
+
+	@Override
 	protected float expectedMax() {
 		return 50;
 	}
