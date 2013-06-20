@@ -28,11 +28,6 @@ public class QualityMeasureMegapixelsTest extends AbstractQualityMeasureTest {
 	}
 
 	@Override
-	protected float expectedLarge() {
-		return 50;
-	}
-
-	@Override
 	protected float expectedBwGradient() {
 		return 0;
 	}

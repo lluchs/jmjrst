@@ -50,12 +50,6 @@ public abstract class AbstractQualityMeasureTest {
 	protected abstract float expectedMax();
 	
 	/**
-	 * Schablonenmehtode: Erwarteter Wert für testLarge().
-	 * @return Die erwartete gewichtete Qualität.
-	 */
-	protected abstract float expectedLarge();
-	
-	/**
 	 * Schablonenmehtode: Erwarteter Wert für testBwGradient().
 	 * @return Die erwartete gewichtete Qualität.
 	 */
@@ -111,17 +105,6 @@ public abstract class AbstractQualityMeasureTest {
 		assertEquals(expectedMax(), qm.getWeightedQuality(image), MAX_ERROR);
 	}
 
-	/**
-	 * Testet ein sehr großes, leeres Bild.
-	 */
-	@Test
-	public void testLarge() {
-		BufferedImage image = new BufferedImage(9984, 6656,
-				BufferedImage.TYPE_INT_BGR);
-		qm.getWeightedQuality(image);
-		assertEquals(expectedLarge(), qm.getWeightedQuality(image), MAX_ERROR);
-	}
-	
 	/**
 	 * Testet ein Bild mit einem Schwarzweiß-Gradienten.
 	 * 

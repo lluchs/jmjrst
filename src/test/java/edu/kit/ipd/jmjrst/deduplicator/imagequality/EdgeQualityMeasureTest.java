@@ -26,11 +26,6 @@ public class EdgeQualityMeasureTest extends AbstractQualityMeasureTest {
 	}
 
 	@Override
-	protected float expectedLarge() {
-		return 0;
-	}
-
-	@Override
 	protected float expectedBwGradient() {
 		return 0;
 	}
