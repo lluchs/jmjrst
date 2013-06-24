@@ -32,7 +32,7 @@ import org.jis.view.Menu;
 import org.jis.view.dialog.AboutBox;
 import org.jis.view.dialog.GallerieDialog;
 
-import edu.kit.ipd.jmjrst.view.ClusterDialog;
+import edu.kit.ipd.jmjrst.deduplicator.view.ClusterDialog;
 
 /**
  * @author <a href="http://www.jgeppert.com">Johannes Geppert</a>

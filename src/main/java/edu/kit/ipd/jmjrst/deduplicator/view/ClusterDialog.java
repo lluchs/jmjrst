@@ -1,4 +1,4 @@
-package edu.kit.ipd.jmjrst.view;
+package edu.kit.ipd.jmjrst.deduplicator.view;
 
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
