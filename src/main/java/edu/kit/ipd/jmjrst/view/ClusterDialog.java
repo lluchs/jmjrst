@@ -155,6 +155,8 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 			b.add(Box.createGlue());
 			clusterBox.add(b);
 		}
+		clusterBox.revalidate();
+		clusterBox.repaint();
 	}
 
 	/**
