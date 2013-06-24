@@ -80,7 +80,23 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 		super(m, m.mes.getString("Menu.17"), true);
 		this.m = m;
 		
-		// Create the upper panel for controls.
+		this.createControls();
+		
+		// Create the main box holding the image groups.
+		clusterBox = Box.createVerticalBox();
+		// The box should scroll on overflow.
+		this.add(new JScrollPane(clusterBox), BorderLayout.CENTER);
+		
+		this.initializeDeduplicator();
+		
+		this.pack();
+		this.setVisible(true);
+	}
+
+	/**
+	 * Create the upper panel for controls.
+	 */
+	private void createControls() {
 		JPanel controls = new JPanel();
 		
 		controls.add(new JLabel("Ähnlichkeitsgrenzwert"));
@@ -99,16 +115,6 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 		controls.add(edgeQualityWeight);
 		
 		this.add(controls, BorderLayout.NORTH);
-		
-		// Create the main box holding the image groups.
-		clusterBox = Box.createVerticalBox();
-		// The box should scroll on overflow.
-		this.add(new JScrollPane(clusterBox), BorderLayout.CENTER);
-		
-		this.initializeDeduplicator();
-		
-		this.pack();
-		this.setVisible(true);
 	}
 
 	/**
