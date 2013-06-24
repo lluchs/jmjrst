@@ -99,17 +99,17 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 	private void createControls() {
 		JPanel controls = new JPanel();
 		
-		controls.add(new JLabel("Ähnlichkeitsgrenzwert"));
+		controls.add(new JLabel(m.mes.getString("ClusterDialog.0")));
 		similarityThresholdSlider = new JSlider(0, 100, 50);
 		similarityThresholdSlider.addChangeListener(this);
 		controls.add(similarityThresholdSlider);
 		
-		controls.add(new JLabel("Gewicht der Auflösung"));
+		controls.add(new JLabel(m.mes.getString("ClusterDialog.1")));
 		megapixelsQualityWeight = new JSpinner(new SpinnerNumberModel(50, 0, 100, 1));
 		megapixelsQualityWeight.addChangeListener(this);
 		controls.add(megapixelsQualityWeight);
 
-		controls.add(new JLabel("Gewicht der Kantensuche"));
+		controls.add(new JLabel(m.mes.getString("ClusterDialog.2")));
 		edgeQualityWeight = new JSpinner(new SpinnerNumberModel(50, 0, 100, 1));
 		edgeQualityWeight.addChangeListener(this);
 		controls.add(edgeQualityWeight);
@@ -128,8 +128,8 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 			this.buildThumbnails(pictures);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(m,
-				    "Could not load images.",
-				    "Load Error",
+				    m.mes.getString("ClusterDialog.3"),
+				    m.mes.getString("ClusterDialog.4"),
 				    JOptionPane.ERROR_MESSAGE);
 			this.setVisible(false);
 			return;
