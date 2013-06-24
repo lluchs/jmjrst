@@ -39,6 +39,7 @@ public class Menu extends JMenuBar {
   public JMenuItem          gener;
   public JMenuItem          zippen;
   public JMenuItem          gallerie;
+  public JMenuItem          cluster;
   public JMenuItem          exit;
   public JMenuItem          set_quality;
   public JMenuItem          info;
@@ -76,6 +77,10 @@ public class Menu extends JMenuBar {
     url = ClassLoader.getSystemResource("icons/text-html.png");
     gallerie.setIcon(new ImageIcon(url));
 
+    cluster = new JMenuItem(m.mes.getString("Menu.17"));
+    url = ClassLoader.getSystemResource("icons/image-x-generic.png");
+    cluster.setIcon(new ImageIcon(url));
+
     exit = new JMenuItem(m.mes.getString("Menu.5"));
     url = ClassLoader.getSystemResource("icons/system-log-out.png");
     exit.setIcon(new ImageIcon(url));
@@ -102,10 +107,12 @@ public class Menu extends JMenuBar {
     gener.setEnabled(false);
     zippen.setEnabled(false);
     gallerie.setEnabled(false);
+    cluster.setEnabled(false);
 
     datei.add(gener);
     datei.add(zippen);
     datei.add(gallerie);
+    datei.add(cluster);
     datei.addSeparator();
     datei.add(exit);
     option.add(optionen_look);
@@ -122,6 +129,7 @@ public class Menu extends JMenuBar {
     gener.addActionListener(al);
     zippen.addActionListener(al);
     gallerie.addActionListener(al);
+    cluster.addActionListener(al);
     set_quality.addActionListener(al);
     info.addActionListener(al);
     look_windows.addActionListener(al);

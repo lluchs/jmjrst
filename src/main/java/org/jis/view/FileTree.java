@@ -185,18 +185,22 @@ public class FileTree extends JTree {
     if (sortedFiles.length > 0)
     {
       m.menu.gallerie.setEnabled(true);
+      m.menu.cluster.setEnabled(true);
       m.menu.zippen.setEnabled(true);
       m.menu.gener.setEnabled(true);
       m.toolBar.gallerie.setEnabled(true);
+      m.toolBar.cluster.setEnabled(true);
       m.toolBar.zippen.setEnabled(true);
       m.toolBar.gener.setEnabled(true);
     }
     else
     {
       m.menu.gallerie.setEnabled(false);
+      m.menu.cluster.setEnabled(false);
       m.menu.zippen.setEnabled(false);
       m.menu.gener.setEnabled(false);
       m.toolBar.gallerie.setEnabled(false);
+      m.toolBar.cluster.setEnabled(false);
       m.toolBar.zippen.setEnabled(false);
       m.toolBar.gener.setEnabled(false);
     }
