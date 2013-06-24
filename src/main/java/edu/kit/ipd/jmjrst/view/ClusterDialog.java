@@ -2,6 +2,7 @@ package edu.kit.ipd.jmjrst.view;
 
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -50,6 +52,7 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 	private Comparator imageComparator;
 	private Dendrogram dendrogram;
 	private Cluster cluster;
+	private Image[] thumbnails;
 
 	/**
 	 * @param m
@@ -97,7 +100,9 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 	private void initializeDeduplicator() {
 		imageComparator = new GreyHistogramComparator();
 		try {
-			imageComparator.setFiles(Arrays.asList(m.list.getPictures()));
+			File[] pictures = m.list.getPictures();
+			imageComparator.setFiles(Arrays.asList(pictures));
+			this.buildThumbnails(pictures);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(m,
 				    "Could not load images.",
@@ -110,6 +115,24 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 		dendrogram = new DendrogramImpl(new CompleteLinkage());
 		cluster = dendrogram.buildFrom(imageComparator.getSimilarities());
 		this.renderClusters();
+	}
+
+	/**
+	 * Füllt den Thumbnail-Cache mit Bildern.
+	 * @param pictures Die anzupassenden Bildern.
+	 * @throws IOException Falls ein Bild nicht gelesen werden kann.
+	 */
+	private void buildThumbnails(File[] pictures) throws IOException {
+		this.thumbnails = new Image[pictures.length];
+		for (int i = 0; i < pictures.length; i++) {
+			BufferedImage img = ImageIO.read(pictures[i]);
+			// Scale the image proportionally to maximum 128x96.
+			if (img.getWidth() > img.getHeight()) {
+				thumbnails[i] = img.getScaledInstance(128, -1, Image.SCALE_SMOOTH);
+			} else {
+				thumbnails[i] = img.getScaledInstance(-1, 96, Image.SCALE_SMOOTH);
+			}
+		}
 	}
 
 	/**
@@ -128,7 +151,26 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 			// Create a new horizontal box holding images.
 			Box b = Box.createHorizontalBox();
 			b.add(new JLabel("G" + i++));
+			this.renderCluster(c, b);
 			clusterBox.add(b);
+		}
+	}
+
+	/**
+	 * Malt das gegebene Cluster in eine Box.
+	 * @param cluster Das Cluster.
+	 * @param box Die Box.
+	 */
+	private void renderCluster(Cluster cluster, Box box) {
+		// Iterate over the leaves.
+		Iterator<Cluster> it = cluster.subClusterIterator(1.0f);
+		while (it.hasNext()) {
+			Cluster leaf = it.next();
+			int index = leaf.getFileIndex();
+			assert index >= 0 && index < thumbnails.length;
+			// Find the prerendered image.
+			Image thumb = thumbnails[index];
+			box.add(new JLabel(new ImageIcon(thumb)));
 		}
 	}
 
