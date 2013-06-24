@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -31,6 +33,11 @@ import edu.kit.ipd.jmjrst.deduplicator.cluster.Cluster;
 import edu.kit.ipd.jmjrst.deduplicator.cluster.CompleteLinkage;
 import edu.kit.ipd.jmjrst.deduplicator.cluster.Dendrogram;
 import edu.kit.ipd.jmjrst.deduplicator.cluster.DendrogramImpl;
+import edu.kit.ipd.jmjrst.deduplicator.imagequality.EdgeQualityMeasure;
+import edu.kit.ipd.jmjrst.deduplicator.imagequality.QualityMeasure;
+import edu.kit.ipd.jmjrst.deduplicator.imagequality.QualityMeasureMegapixels;
+import edu.kit.ipd.jmjrst.deduplicator.imagequality.SortedImages;
+import edu.kit.ipd.jmjrst.deduplicator.imagequality.SortedImagesImpl;
 
 /**
  * Das Bildgruppen-Dialogfenster erlaubt es, einen Überblick über möglicherweise
@@ -54,7 +61,11 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 	private Comparator imageComparator;
 	private Dendrogram dendrogram;
 	private Cluster cluster;
+	private BufferedImage[] images;
 	private Image[] thumbnails;
+	private QualityMeasureMegapixels megapixelsQM;
+	private EdgeQualityMeasure edgeQM;
+	private SortedImages sorter;
 
 	/**
 	 * @param m
@@ -126,8 +137,11 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 	 */
 	private void buildThumbnails(File[] pictures) throws IOException {
 		this.thumbnails = new Image[pictures.length];
+		this.images = new BufferedImage[pictures.length];
 		for (int i = 0; i < pictures.length; i++) {
 			BufferedImage img = ImageIO.read(pictures[i]);
+			// Save the image in the cache.
+			images[i] = img;
 			// Scale the image proportionally to maximum 128x96.
 			if (img.getWidth() > img.getHeight()) {
 				thumbnails[i] = img.getScaledInstance(IMAGE_WIDTH, -1, Image.SCALE_SMOOTH);
@@ -172,19 +186,55 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 	 * @param box Die Box.
 	 */
 	private void renderCluster(Cluster cluster, Box box) {
-		// Iterate over the leaves.
+		// Iterate over the leaves, building a list.
+		List<BufferedImage> leaves = new LinkedList<BufferedImage>();
 		Iterator<Cluster> it = cluster.subClusterIterator(1.0f);
 		while (it.hasNext()) {
 			Cluster leaf = it.next();
 			int index = leaf.getFileIndex();
 			assert index >= 0 && index < thumbnails.length;
-			// Find the prerendered image.
-			Image thumb = thumbnails[index];
+			// Find the image.
+			leaves.add(images[index]);
+		}
+		SortedImages sorter = getSorter();
+		sorter.setImageList(leaves);
+		for (Image img : sorter.getSortedImages()) {
+			Image thumb = getThumbnailFor(img);
 			box.add(new JLabel(new ImageIcon(thumb)));
-			if (it.hasNext()) {
-				box.add(Box.createHorizontalStrut(IMAGE_MARGIN));
+			box.add(Box.createHorizontalStrut(IMAGE_MARGIN));
+		}
+	}
+	
+	/**
+	 * Findet das Vorschaubildchen für ein bestimmtes Bild.
+	 * @param img Das Bild.
+	 * @return Das zugehörige Vorschaubild.
+	 */
+	private Image getThumbnailFor(Image img) {
+		for (int i = 0; i < images.length; i++) {
+			if (img == images[i]) {
+				return thumbnails[i];
 			}
 		}
+		return null;
+	}
+
+	/**
+	 * Erstellt einen Bildsortierer mit eingestellten Qualitätskriterien.
+	 * @return Einen fertigen Bildsortierer.
+	 */
+	private SortedImages getSorter() {
+		if (sorter == null) {
+			megapixelsQM = new QualityMeasureMegapixels();
+			edgeQM = new EdgeQualityMeasure();
+			sorter = new SortedImagesImpl();
+			sorter.setQualityFeatures(Arrays.asList(
+					new QualityMeasure[] {megapixelsQM, edgeQM}));
+		}
+		// Update the weight every time.
+		megapixelsQM.setWeight((Integer) megapixelsQualityWeight.getValue());
+		edgeQM.setWeight((Integer) edgeQualityWeight.getValue());
+		return sorter;
 	}
 
 	@Override
