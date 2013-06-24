@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -150,8 +148,11 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 			Cluster c = it.next();
 			// Create a new horizontal box holding images.
 			Box b = Box.createHorizontalBox();
+			b.add(Box.createHorizontalStrut(20));
 			b.add(new JLabel("G" + i++));
+			b.add(Box.createHorizontalStrut(20));
 			this.renderCluster(c, b);
+			b.add(Box.createGlue());
 			clusterBox.add(b);
 		}
 	}
