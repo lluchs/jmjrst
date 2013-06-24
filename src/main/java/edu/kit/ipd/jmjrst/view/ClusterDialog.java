@@ -7,9 +7,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -63,6 +66,7 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 	private Cluster cluster;
 	private BufferedImage[] images;
 	private Image[] thumbnails;
+	private Map<BufferedImage, Integer> sortingCache;
 	private QualityMeasureMegapixels megapixelsQM;
 	private EdgeQualityMeasure edgeQM;
 	private SortedImages sorter;
@@ -127,6 +131,7 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 		
 		dendrogram = new DendrogramImpl(new CompleteLinkage());
 		cluster = dendrogram.buildFrom(imageComparator.getSimilarities());
+		this.buildSortingCache();
 		this.renderClusters();
 	}
 
@@ -148,6 +153,20 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 			} else {
 				thumbnails[i] = img.getScaledInstance(-1, IMAGE_HEIGHT, Image.SCALE_SMOOTH);
 			}
+		}
+	}
+	
+	/**
+	 * Baut einen Cache auf, sodass die Bilder nur einmal sortiert werden müssen.
+	 */
+	private void buildSortingCache() {
+		SortedImages sorter = getSorter();
+		sorter.setImageList(Arrays.asList(images));
+		List<BufferedImage> sorted = sorter.getSortedImages();
+		sortingCache = new HashMap<BufferedImage, Integer>();
+		int i = 0;
+		for (BufferedImage img : sorted) {
+			sortingCache.put(img, i++);
 		}
 	}
 
@@ -196,9 +215,13 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 			// Find the image.
 			leaves.add(images[index]);
 		}
-		SortedImages sorter = getSorter();
-		sorter.setImageList(leaves);
-		for (Image img : sorter.getSortedImages()) {
+		Collections.sort(leaves, new java.util.Comparator<BufferedImage>() {
+			@Override
+			public int compare(BufferedImage o1, BufferedImage o2) {
+				return sortingCache.get(o2) - sortingCache.get(o1);
+			}
+		});
+		for (Image img : leaves) {
 			Image thumb = getThumbnailFor(img);
 			box.add(new JLabel(new ImageIcon(thumb)));
 			box.add(Box.createHorizontalStrut(IMAGE_MARGIN));
@@ -239,6 +262,10 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 
 	@Override
 	public void stateChanged(ChangeEvent event) {
+		if (event.getSource() instanceof JSpinner) {
+			// Spinner set quality measures, so resort!
+			buildSortingCache();
+		}
 		// Re-render all clusters when something changes.
 		this.renderClusters();
 	}
