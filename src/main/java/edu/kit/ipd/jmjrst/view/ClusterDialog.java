@@ -38,6 +38,10 @@ import edu.kit.ipd.jmjrst.deduplicator.cluster.DendrogramImpl;
  *
  */
 public class ClusterDialog extends JDialog implements ChangeListener {
+	private static final int IMAGE_HEIGHT = 96;
+	private static final int IMAGE_WIDTH = 128;
+	private static final int IMAGE_MARGIN = 3;
+	private static final int CLUSTER_NAME_PADDING = 20;
 	private static final long serialVersionUID = 5875401850092115129L;
 	private Main m;
 	
@@ -126,9 +130,9 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 			BufferedImage img = ImageIO.read(pictures[i]);
 			// Scale the image proportionally to maximum 128x96.
 			if (img.getWidth() > img.getHeight()) {
-				thumbnails[i] = img.getScaledInstance(128, -1, Image.SCALE_SMOOTH);
+				thumbnails[i] = img.getScaledInstance(IMAGE_WIDTH, -1, Image.SCALE_SMOOTH);
 			} else {
-				thumbnails[i] = img.getScaledInstance(-1, 96, Image.SCALE_SMOOTH);
+				thumbnails[i] = img.getScaledInstance(-1, IMAGE_HEIGHT, Image.SCALE_SMOOTH);
 			}
 		}
 	}
@@ -148,14 +152,14 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 			Cluster c = it.next();
 			// Create a new horizontal box holding images.
 			Box b = Box.createHorizontalBox();
-			b.add(Box.createHorizontalStrut(20));
+			b.add(Box.createHorizontalStrut(CLUSTER_NAME_PADDING));
 			b.add(new JLabel("G" + i++));
-			b.add(Box.createHorizontalStrut(20));
+			b.add(Box.createHorizontalStrut(CLUSTER_NAME_PADDING));
 			this.renderCluster(c, b);
 			b.add(Box.createGlue());
 			clusterBox.add(b);
 			if (it.hasNext()) {
-				clusterBox.add(Box.createVerticalStrut(3));
+				clusterBox.add(Box.createVerticalStrut(IMAGE_MARGIN));
 			}
 		}
 		clusterBox.revalidate();
@@ -178,7 +182,7 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 			Image thumb = thumbnails[index];
 			box.add(new JLabel(new ImageIcon(thumb)));
 			if (it.hasNext()) {
-				box.add(Box.createHorizontalStrut(3));
+				box.add(Box.createHorizontalStrut(IMAGE_MARGIN));
 			}
 		}
 	}
