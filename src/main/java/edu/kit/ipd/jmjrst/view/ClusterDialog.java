@@ -20,6 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.jis.Main;
 
@@ -35,7 +37,7 @@ import edu.kit.ipd.jmjrst.deduplicator.cluster.DendrogramImpl;
  * ähnliche Bilder zu verschaffen.
  *
  */
-public class ClusterDialog extends JDialog {
+public class ClusterDialog extends JDialog implements ChangeListener {
 	private static final long serialVersionUID = 5875401850092115129L;
 	private Main m;
 	
@@ -63,14 +65,17 @@ public class ClusterDialog extends JDialog {
 		
 		controls.add(new JLabel("Ähnlichkeitsgrenzwert"));
 		similarityThresholdSlider = new JSlider(0, 100, 50);
+		similarityThresholdSlider.addChangeListener(this);
 		controls.add(similarityThresholdSlider);
 		
 		controls.add(new JLabel("Gewicht der Auflösung"));
 		megapixelsQualityWeight = new JSpinner(new SpinnerNumberModel(50, 0, 100, 1));
+		megapixelsQualityWeight.addChangeListener(this);
 		controls.add(megapixelsQualityWeight);
 
 		controls.add(new JLabel("Gewicht der Kantensuche"));
 		edgeQualityWeight = new JSpinner(new SpinnerNumberModel(50, 0, 100, 1));
+		edgeQualityWeight.addChangeListener(this);
 		controls.add(edgeQualityWeight);
 		
 		this.add(controls, BorderLayout.NORTH);
@@ -122,10 +127,15 @@ public class ClusterDialog extends JDialog {
 			Cluster c = it.next();
 			// Create a new horizontal box holding images.
 			Box b = Box.createHorizontalBox();
-			System.out.println("Image" + i);
 			b.add(new JLabel("G" + i++));
 			clusterBox.add(b);
 		}
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent event) {
+		// Re-render all clusters when something changes.
+		this.renderClusters();
 	}
 	
 	
