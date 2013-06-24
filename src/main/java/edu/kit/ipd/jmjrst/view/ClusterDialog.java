@@ -154,6 +154,9 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 			this.renderCluster(c, b);
 			b.add(Box.createGlue());
 			clusterBox.add(b);
+			if (it.hasNext()) {
+				clusterBox.add(Box.createVerticalStrut(3));
+			}
 		}
 		clusterBox.revalidate();
 		clusterBox.repaint();
@@ -174,6 +177,9 @@ public class ClusterDialog extends JDialog implements ChangeListener {
 			// Find the prerendered image.
 			Image thumb = thumbnails[index];
 			box.add(new JLabel(new ImageIcon(thumb)));
+			if (it.hasNext()) {
+				box.add(Box.createHorizontalStrut(3));
+			}
 		}
 	}
 
