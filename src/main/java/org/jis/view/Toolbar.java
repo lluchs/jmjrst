@@ -37,6 +37,7 @@ public class Toolbar extends JToolBar {
   public JButton          gener;
   public JButton          zippen;
   public JButton          gallerie;
+  public JButton          cluster;
   public JButton          preferences;
 
   /**
@@ -58,6 +59,10 @@ public class Toolbar extends JToolBar {
     url = ClassLoader.getSystemResource("icons/text-html.png");
     gallerie.setIcon(new ImageIcon(url));
 
+    cluster = new JButton(m.mes.getString("Menu.17"));
+    url = ClassLoader.getSystemResource("icons/image-x-generic.png");
+    cluster.setIcon(new ImageIcon(url));
+
     preferences = new JButton(m.mes.getString("Menu.6"));
     url = ClassLoader.getSystemResource("icons/preferences-system.png");
     preferences.setIcon(new ImageIcon(url));
@@ -65,16 +70,19 @@ public class Toolbar extends JToolBar {
     gener.setEnabled(false);
     zippen.setEnabled(false);
     gallerie.setEnabled(false);
+    cluster.setEnabled(false);
 
     this.add(gener);
     this.add(zippen);
     this.add(gallerie);
+    this.add(cluster);
     this.add(preferences);
     
     MenuListner al = new MenuListner(m, m.menu);
     gener.addActionListener(al);
     zippen.addActionListener(al);
     gallerie.addActionListener(al);
+    cluster.addActionListener(al);
     preferences.addActionListener(al);
   }
 }

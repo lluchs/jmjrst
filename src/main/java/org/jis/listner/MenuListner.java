@@ -32,6 +32,8 @@ import org.jis.view.Menu;
 import org.jis.view.dialog.AboutBox;
 import org.jis.view.dialog.GallerieDialog;
 
+import edu.kit.ipd.jmjrst.view.ClusterDialog;
+
 /**
  * @author <a href="http://www.jgeppert.com">Johannes Geppert</a>
  * 
@@ -79,6 +81,7 @@ public class MenuListner implements ActionListener {
     else if (e.getSource() == menu.gener || e.getSource() == m.toolBar.gener) m.generator.generate(false);
     else if (e.getSource() == menu.zippen || e.getSource() == m.toolBar.zippen) m.generator.generate(true);
     else if (e.getSource() == menu.gallerie || e.getSource() == m.toolBar.gallerie) new GallerieDialog(m);
+    else if (e.getSource() == menu.cluster || e.getSource() == m.toolBar.cluster) new ClusterDialog(m);
     else if (e.getSource() == menu.exit) System.exit(0);
     else if (e.getSource() == menu.set_quality || e.getSource() == m.toolBar.preferences) m.openOptions();
     else if (e.getSource() == menu.look_windows)
